@@ -1,0 +1,14 @@
+<xml>
+<ToUserName><![CDATA[{{ to_user }}]]></ToUserName>
+<FromUserName><![CDATA[{{ from_user }}]]></FromUserName>
+<CreateTime>{{ create_time }}</CreateTime>
+<MsgType><![CDATA[music]]></MsgType>
+<Music>
+<Title><![CDATA[哈哈]]></Title>
+<Description><![CDATA[啊啊]]></Description>
+<MusicUrl><![CDATA[{{ music_url }}]]></MusicUrl>
+<HQMusicUrl><![CDATA[{{ music_url }}]]></HQMusicUrl>
+<ThumbMediaId><![CDATA[RpzLMz5Xre4tpVP4z0f5OzRaGDpMQ-tghFqd6TLbf0c]]></ThumbMediaId>
+</Music>
+<FuncFlag>0</FuncFlag>
+</xml>
