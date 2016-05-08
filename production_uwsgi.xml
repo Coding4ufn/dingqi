@@ -1,0 +1,12 @@
+<uwsgi>
+    <socket>127.0.0.1:8001</socket>
+    <listen>100</listen>
+    <master>true</master>
+    <processes>20</processes>
+    <buffer-size>4096</buffer-size>
+    <max-requests>5000</max-requests>
+    <chdir>/root/dingqi</chdir>
+    <virtualenv>/root/.virtualenvs/dingqi/</virtualenv>
+    <module>dingqi.wsgi</module>
+    <daemonize>/var/log/uwsgi/uwsgi.log</daemonize>
+</uwsgi>
