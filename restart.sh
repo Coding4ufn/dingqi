@@ -10,5 +10,5 @@ killall -QUIT uwsgi
 sleep 1
 
 # start
-uwsgi -x /home/dingqi/production_uwsgi.xml
-nginx -c /home/dingqi/production_nginx.conf
+uwsgi -x /root/dingqi/production_uwsgi.xml
+nginx -c /root/dingqi/production_nginx.conf
