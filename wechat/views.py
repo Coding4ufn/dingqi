@@ -21,9 +21,9 @@ class WechatInterface(View):
         """
         处理基础参数, 根据方法分配到各自的Method中
         """
-        self.nonce = request.REQUEST.get('nonce', None)
-        self.timestamp = request.REQUEST.get('timestamp', None)
-        self.signature = request.REQUEST.get('signature', None)
+        self.nonce = request.GET.get('nonce', None)
+        self.timestamp = request.GET.get('timestamp', None)
+        self.signature = request.GET.get('signature', None)
         self.token = TOKEN
         return super(WechatInterface, self).dispatch(request, *args, **kwargs)
 
@@ -45,7 +45,7 @@ class WechatInterface(View):
         """
         # Parsing encrypted XML CDATA
         raw_str = smart_str(request.body)
-        msg_signature = request.REQUEST.get('msg_signature', None)
+        msg_signature = request.POST.get('msg_signature', None)
         # Decrypt messages using AES
         crypt = WXBizMsgCrypt(self.token, encodingAESKey, WECHAT_ID)
         ret, _xml = crypt.DecryptMsg(raw_str, msg_signature, self.timestamp, self.nonce)
