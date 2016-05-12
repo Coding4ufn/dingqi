@@ -15,12 +15,12 @@ def user_page(request, fakeid):
     code = request.GET.get('code', '')
     wechat = WechatMPAuth()
     info = wechat.get_user_info(code)
-    unionid = info['unionid']
-    wechat_user = WechatUser.objects.get_or_create(unionid=unionid)
+    openid = info['openid']
+    wechat_user = WechatUser.objects.get_or_create(openid=openid)
     WechatUser.objects.filter(id=wechat_user.id).update(**info)
-    context = {}
+    context = {'user': wechat_user}
     context.update(prepare_wechat(request.build_absolute_uri()))
-    return render(request, '', context)
+    return render(request, 'user_page.html', context)
 
 
 def rank(request):

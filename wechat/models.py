@@ -79,8 +79,7 @@ class WechatUser(models.Model):
     access_token = models.CharField(u'access_token', max_length=256, default=u'')
     refresh_token = models.CharField(u'refresh_token', max_length=256, default=u'')
     expired = models.DateTimeField(u'过期时间', default=timezone.now)
-    openid = models.CharField(u'公众号获得微信open_id', max_length=64, blank=True, null=True)
-    web_openid = models.CharField(u'网页扫描获得微信open_id', max_length=64, blank=True, null=True)
+    openid = models.CharField(u'公众号获得微信open_id', max_length=256)
     user = models.OneToOneField(User, related_name='wechat', blank=True, null=True)
     created = models.DateTimeField(u'绑定时间', auto_now_add=True)
     nickname = models.CharField(u'微信名称', max_length=256, blank=True, null=True)
@@ -90,7 +89,6 @@ class WechatUser(models.Model):
     province = models.CharField(u'省', max_length=256, blank=True, null=True)
     city = models.CharField(u'市', max_length=256, blank=True, null=True)
     privilege = models.CharField(u'特权', max_length=256, blank=True, null=True)
-    unionid = models.CharField(u'用户独立id', max_length=256)
     score = models.FloatField(u'顶奇分数', default=0.0)
     helped_by = models.ManyToManyField('self', through='AddScore', symmetrical=False, related_name='has_helped')
 
