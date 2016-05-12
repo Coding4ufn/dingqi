@@ -92,7 +92,7 @@ class WechatUser(models.Model):
     privilege = models.CharField(u'特权', max_length=256, blank=True, null=True)
     unionid = models.CharField(u'用户独立id', max_length=256)
     score = models.FloatField(u'顶奇分数', default=0.0)
-    helped_by = models.ManyToManyField('self', through='AddScore')
+    helped_by = models.ManyToManyField('self', through='AddScore', symmetrical=False, related_name='has_helped')
 
     def __unicode__(self):
         return "%s" % self.nickname
