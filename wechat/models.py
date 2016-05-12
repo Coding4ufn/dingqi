@@ -91,6 +91,8 @@ class WechatUser(models.Model):
     city = models.CharField(u'市', max_length=256, blank=True, null=True)
     privilege = models.CharField(u'特权', max_length=256, blank=True, null=True)
     unionid = models.CharField(u'用户独立id', max_length=256)
+    score = models.FloatField(u'顶奇分数', default=0.0)
+    helped_by = models.ManyToManyField('self', through=AddScore)
 
     def __unicode__(self):
         return "%s" % self.nickname
@@ -102,3 +104,10 @@ class WechatUser(models.Model):
         else:
             res = {"errcode": 1, "errmsg": "openid error"}
         return res
+
+
+class AddScore(models.Model):
+    user = models.ForeignKey(WechatUser)
+    helper = models.ForeignKey(WechatUser, related_name='received')
+    score = models.FloatField(u'顶奇分数', default=0.0)
+    created = models.DateTimeField(u'加顶奇时间', default=timezone.now)
