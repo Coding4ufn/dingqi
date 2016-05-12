@@ -1,3 +1,4 @@
+qrcode
 crypto==1.4.1
 Django==1.9.5
 requests==2.10.0

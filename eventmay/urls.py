@@ -18,6 +18,7 @@ from eventmay import views
 # from django.contrib import admin
 
 urlpatterns = [
+    url(r'^wechat_qr/$', views.wechat_qr, name='wechat qr'),
     url(r'^u/(?P<fakeid>\d+)/$', views.user_page, name='user page'),
     url(r'^rank/$', views.rank, name='rank'),
 ]
