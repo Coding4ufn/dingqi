@@ -74,6 +74,13 @@ class WechatMessage(models.Model):
         return self.msg_id + str(self.create_time)
 
 
+class AddScore(models.Model):
+    user = models.ForeignKey(WechatUser)
+    helper = models.ForeignKey(WechatUser, related_name='received')
+    score = models.FloatField(u'顶奇分数', default=0.0)
+    created = models.DateTimeField(u'加顶奇时间', default=timezone.now)
+
+
 class WechatUser(models.Model):
     """微信用户信息及关系"""
     access_token = models.CharField(u'access_token', max_length=256, default=u'')
@@ -104,10 +111,3 @@ class WechatUser(models.Model):
         else:
             res = {"errcode": 1, "errmsg": "openid error"}
         return res
-
-
-class AddScore(models.Model):
-    user = models.ForeignKey(WechatUser)
-    helper = models.ForeignKey(WechatUser, related_name='received')
-    score = models.FloatField(u'顶奇分数', default=0.0)
-    created = models.DateTimeField(u'加顶奇时间', default=timezone.now)
