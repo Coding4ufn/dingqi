@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>请用微信打开此页面</title>
+    <style>
+        body {
+            font-family: 'helvetica neue', tahoma, 'hiragino sans gb', stheiti, 'wenquanyi micro hei', \5FAE\8F6F\96C5\9ED1, \5B8B\4F53, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:300px;margin:30px auto;background:#fff;">
+        <p style="text-align: center; padding-top: 20px;">扫描二维码，在微信中使用</p>
+        <img src="data:image/png;base64,{{ qr }}" alt="" style="width:300px;margin:0 auto;">
+        <div class="return" style="text-align: center; line-height: 48px;padding-bottom:30px;">
+            <img width="48" height="48" style="position: relative; left: -10px;" src="{% static 'new/favicon/favicon.ico' %}" alt="">
+            <a href="{% url 'home' %}"><span style="line-height:48px;">返回口碑街</span></a>
+        </div>
+    </div>
+</body>
+</html>

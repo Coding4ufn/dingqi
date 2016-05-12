@@ -32,7 +32,7 @@ def wechat_qr(request):
     current_url = request.GET.get('next', '')
     img = qrcode.make(current_url)
     output = StringIO()
-    img.save()
+    img.save(output)
     output.seek(0)
     output_s = output.read()
     b64 = base64.b64encode(output_s)
