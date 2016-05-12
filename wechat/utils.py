@@ -14,7 +14,7 @@ def prepare_wechat(url=None, ):
     cur_url = url
     wechat = WechatMPAuth(settings.WECHAT_ID, settings.WECHAT_SECRET)
     jsapi_ticket = wechat.js_ticket
-    noncestr = str(random.randint(10))
+    noncestr = str(random.randint(100000, 999999))
     timestamp = int((timezone.datetime.now() - timezone.datetime(1970, 1, 1)).total_seconds())
     params = {"jsapi_ticket": jsapi_ticket, 'noncestr': noncestr, 'timestamp': timestamp, 'url': cur_url}
     clear_text = "&".join(['%s=%s' % (key, params[key]) for key in sorted(params)])
