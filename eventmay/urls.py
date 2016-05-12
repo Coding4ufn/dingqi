@@ -18,6 +18,6 @@ from eventmay import views
 # from django.contrib import admin
 
 urlpatterns = [
-    url(r'^u/(?P<fakeid>/d+)/$', views.user_page, name='user page'),
+    url(r'^u/(?P<fakeid>\d+)/$', views.user_page, name='user page'),
     url(r'^rank/$', views.rank, name='rank'),
 ]
