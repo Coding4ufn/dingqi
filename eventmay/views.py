@@ -16,6 +16,7 @@ def user_page(request, fakeid):
     wechat = WechatMPAuth()
     info = wechat.get_user_info(code)
     openid = info['openid']
+    info.pop('language')
     wechat_user, created = WechatUser.objects.get_or_create(openid=openid)
     WechatUser.objects.filter(id=wechat_user.id).update(**info)
     context = {'user': wechat_user}
