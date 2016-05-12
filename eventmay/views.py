@@ -16,7 +16,7 @@ def user_page(request, fakeid):
     wechat = WechatMPAuth()
     info = wechat.get_user_info(code)
     openid = info['openid']
-    wechat_user = WechatUser.objects.get_or_create(openid=openid)
+    wechat_user, created = WechatUser.objects.get_or_create(openid=openid)
     WechatUser.objects.filter(id=wechat_user.id).update(**info)
     context = {'user': wechat_user}
     context.update(prepare_wechat(request.build_absolute_uri()))
