@@ -18,10 +18,9 @@ def user_page(request, openid):
     code = request.GET.get('code', '')
     wechat = WechatMPAuth()
     info = wechat.get_user_info(code)
-    info['subscribe_time'] = ''
     c_openid = info['openid']
     current_user, created = WechatUser.objects.get_or_create(openid=c_openid)
-    map(lambda x: info.pop(x), ['subscribe_time', 'remark', 'groupid', 'subscribe', 'language', 'tagid_list'])
+    map(lambda x: info.pop(x), ['language'])
     WechatUser.objects.filter(id=current_user.id).update(**info)
     url = settings.WEB_SITE_ROOT + reverse('user page', args=[wechat_user.openid])
     context = {'user': wechat_user, 'current_user': current_user, 'addscores': wechat_user.addscore_set.all(), 'url': url}
