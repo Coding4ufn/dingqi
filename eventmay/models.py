@@ -9,6 +9,6 @@ from utils import get_score
 
 class Help(models.Model):
     created = models.DateTimeField(u'帮助时间', auto_now_add=True)
+    user = models.ForeignKey(WechatUser, related_name='was_helped')
     helper = models.ForeignKey(WechatUser, related_name='helped')
-    helped = models.ForeignKey(WechatUser, related_name='helped_by')
     score = models.IntegerField(u'帮助数值', default=get_score)
