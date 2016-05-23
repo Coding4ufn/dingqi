@@ -129,7 +129,7 @@ class WechatInterface(View):
                 {'title': u'立即参加顶奇夏日狂欢',
                  'description': u'点击此处立即开始攒顶奇洗衣液奖品多多，快来参加。',
                  'get_absolute_pic_url': settings.WEB_SITE_ROOT + static('img/3.pic.jpg'),
-                 'url': settings.WEB_SITE_ROOT + reverse('join', [wechat_message.from_user_name])}
+                 'url': settings.WEB_SITE_ROOT + reverse('join', args=[wechat_message.from_user_name])}
             ]
             context = {'to_user': wechat_message.from_user_name,
                        'from_user': wechat_message.to_user_name,
