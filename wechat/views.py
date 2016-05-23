@@ -49,7 +49,7 @@ class WechatInterface(View):
         logger = get_logger(__name__)
         # Parsing encrypted XML CDATA
         raw_str = smart_str(request.body)
-        msg_signature = request.POST.get('msg_signature', None)
+        msg_signature = request.GET.get('msg_signature', None)
         logger.info(msg_signature)
         logger.info(raw_str)
         # Decrypt messages using AES
