@@ -153,12 +153,14 @@ class WechatInterface(View):
         elif wechat_message.event_key == 'prize':
             wechat_mp = WechatMPAuth()
             if not WechatUser.objects.filter(openid=wechat_message.from_user_name):
-                wechat_mp.send_customer_service_text(wechat_message.from_user_name, u'您还没参加游戏呢!')
-                return HttpResponse('')
-            your_score = WechatUser.objects.get(openid=wechat_message.from_user_name).score
-            your_rank = WechatUser.objects.filter(score__gt=your_score).count() + 1
-            wechat_mp.send_customer_service_text(wechat_message.from_user_name, u'你攒到了顶奇洗衣液%sml, 目前的排名为%s。还不能领取奖品哦, 快去寻找小伙伴的帮助吧!' % (your_score, your_rank))
-            return HttpResponse('')
+                reply = u'您还没参加游戏呢!'
+            else:
+                your_score = WechatUser.objects.filter(openid=wechat_message.from_user_name).first().score
+                your_rank = WechatUser.objects.filter(score__gt=your_score).count() + 1
+                reply = u'你攒到了顶奇洗衣液%sml, 目前的排名为%s。还不能领取奖品哦, 快去寻找小伙伴的帮助吧!' % (your_score, your_rank)
+            context = {"to_user": wechat_message.from_user_name, "from_user": wechat_message.to_user_name,
+                       "create_time": self.create_time_ts, "reply": reply}
+            return render(request, 'text_reply.xml', context)
 
     def kf_create_session(self, request, wechat_message):
         """
