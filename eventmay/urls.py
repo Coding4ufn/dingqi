@@ -19,8 +19,8 @@ from eventmay import views
 
 urlpatterns = [
     url(r'^wechat_qr/$', views.wechat_qr, name='wechat qr'),
-    url(r'^u/(?P<fakeid>.+?)/$', views.user_page, name='user page'),
-    url(r'^u/add/(?P<helped_id>.+?)/(?P<helper_id>.+?)/$', views.add, name='add'),
-    url(r'^u/join/(?P<openid>.+?)/$', views.join, name='join'),
+    url(r'^u/(?P<openid>[A-Za-z0-9-]+)/$', views.user_page, name='user page'),
+    url(r'^u/add/(?P<helped_id>[A-Za-z0-9-]+)/(?P<helper_id>[A-Za-z0-9-]+)/$', views.add, name='add'),
+    url(r'^u/join/(?P<openid>[A-Za-z0-9-]+)/$', views.join, name='join'),
     url(r'^rank/$', views.rank, name='rank'),
 ]

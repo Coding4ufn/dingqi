@@ -12,14 +12,14 @@ import qrcode
 
 @wechat_only
 @wechat_auth_open
-def user_page(request, fakeid):
+def user_page(request, openid):
     """个人页面"""
-    current_user = get_object_or_404(WechatUser, unionid=fakeid)
+    current_user = get_object_or_404(WechatUser, openid=openid)
     code = request.GET.get('code', '')
     wechat = WechatMPAuth()
     info = wechat.get_user_info(code)
-    openid = info['openid']
-    wechat_user, created = WechatUser.objects.get_or_create(openid=openid)
+    c_openid = info['openid']
+    wechat_user, created = WechatUser.objects.get_or_create(openid=c_openid)
     map(lambda x: info.pop(x), ['subscribe_time', 'remark', 'groupid', 'subscribe', 'language', 'tagid_list'])
     WechatUser.objects.filter(id=wechat_user.id).update(**info)
     context = {'user': wechat_user, 'current_user': current_user}
@@ -28,10 +28,9 @@ def user_page(request, fakeid):
 
 
 def add(request, helped_id, helper_id):
-    current_user = WechatUser.objects.get(unionid=helped_id)
-    unionid = helper_id
-    helper = WechatUser.objects.get(unionid=unionid)
-    if not helper or not current_user:
+    user = WechatUser.objects.get(openid=helped_id)
+    helper = WechatUser.objects.get(openid=helper_id)
+    if not helper or not user:
         score = ''
         created = ''
         name = ''
@@ -40,7 +39,7 @@ def add(request, helped_id, helper_id):
     else:
         name = helper.nickname
         avatar = helper.headimgurl
-        add_score, created = AddScore.objects.get_or_create(user=current_user, helper=helper)
+        add_score, created = AddScore.objects.get_or_create(user=user, helper=helper)
         error = 0
         score = add_score.score
     context = {'score': score, 'created': created, 'error': error, 'name': name, 'avatar': avatar}
