@@ -1,0 +1,132 @@
+body {
+    font-family: 'helvetica neue', tahoma, 'hiragino sans gb', stheiti, 'wenquanyi micro hei', \5FAE\8F6F\96C5\9ED1, \5B8B\4F53, sans-serif;
+    -webkit-font-smoothing: antialiased
+}
+
+.title {
+
+}
+
+.user-info {
+    text-align: center;
+    margin: 20px 0;
+    height: 72px;
+}
+
+.avatar {
+    border-radius: 50%;
+    height: 72px;
+    width: 72px;
+    border: 6px solid rgba(154, 206, 232, 0.26);
+    float: left;
+    margin-left: 15%;
+}
+
+.user-name {
+    width: 160px;
+    text-align: left;
+    display: inline-block;
+    line-height: 72px;
+    margin: 0 11px;
+    float: left;
+    font-size: 20px;
+    word-break: keep-all;/* 不换行 */
+    white-space: nowrap;/* 不换行 */
+    overflow: hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow: ellipsis;
+}
+
+.water-ball {
+    height: 350px;
+    margin-top: -120px;
+    text-align: center;
+}
+
+.action-area {
+    padding: 0 50px 20px;
+}
+
+.action-area .join {
+    color: red;
+    text-decoration: underline;
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-top: 20px;
+}
+
+.history {
+    min-height: 200px;
+    padding: 0 20px;
+}
+
+.hl-wrapper {
+    border-radius: 20px;
+    background: rgba(184, 212, 227, 0.51);
+    min-height: 200px;
+    padding: 10px 20px;
+}
+
+.hl-wrapper .title {
+    color: #285A74;
+    border-bottom: 1px solid #285A74;
+    font-size: 22px;
+    margin: 0;
+}
+
+.hl-table {
+    width: 100%;
+}
+
+.added-value {
+    text-align: right;
+    color: orangered;
+}
+
+.hl-table .avatar {
+    width: 50px;
+    height: 50px;
+    margin-left: 0;
+}
+
+.hl-table .name {
+    color: #444;
+}
+
+.hl-table tr {
+    height: 55px;
+}
+
+.rank-area {
+    padding: 20px 50px;
+}
+
+.rules {
+    color: red;
+    text-decoration: underline;
+    width: 100%;
+    display: block;
+    margin-top: 20px;
+    text-align: right;
+}
+
+.dingqi-modals .modal-header {
+    border-bottom: none;
+}
+
+.dingqi-modals .modal-footer{
+    border-top: none;
+}
+
+.dingqi-modals .dingqi-btn {
+    background-color: #FF3713;
+    border-color: #FF3713;
+    font-weight: 600;
+    border-bottom: 4px solid #C11D00;
+    color: white;
+}
+
+.dingqi-modals .modal-footer {
+    text-align: center;
+    padding-bottom: 40px;
+}
