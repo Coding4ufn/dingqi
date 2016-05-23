@@ -12,6 +12,7 @@ from wechat.models import *
 from wechat.wechatauth import WechatMPAuth
 from wechat.utils import parse_xml, prepare_wechat
 from wechat_encrypt.WXBizMsgCrypt import WXBizMsgCrypt
+from eventmay.utils import get_logger
 import hashlib
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -45,12 +46,18 @@ class WechatInterface(View):
         POST方法访问接口的处理, 用于处理微信交互信息
         :param request:
         """
+        logger = get_logger(__name__)
         # Parsing encrypted XML CDATA
         raw_str = smart_str(request.body)
         msg_signature = request.POST.get('msg_signature', None)
+        logger.info(msg_signature)
+        logger.info(raw_str)
         # Decrypt messages using AES
         crypt = WXBizMsgCrypt(self.token, encodingAESKey, WECHAT_ID)
+        logger.info(crypt)
         ret, _xml = crypt.DecryptMsg(raw_str, msg_signature, self.timestamp, self.nonce)
+        logger.info(_xml)
+        logger.info(ret)
         # Parsing clear text XML CDATA
         msg = parse_xml(ET.fromstring(_xml))
         # Store messages in database
