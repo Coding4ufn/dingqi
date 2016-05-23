@@ -49,6 +49,7 @@
                             {% for user in ranked_users %}
                             <tr>
                                 <td colspan="3" class="listing">
+                                    <a href="{% url 'user page' user.openid %}">
                                     <div style="background: url('{% if current_user == user %}{% static 'img/mylist_bg.png' %}{% else %}{% static 'img/list_bg.png' %}{% endif %}'); background-size: 100%; margin: 0 10px;">
                                         <div class="avatar-holder">
                                             <img class="avatar" src="{{ user.headimgurl }}">
@@ -67,6 +68,7 @@
                                         <p class="name">{{ user.nickname }}</p>
                                         <p class="score">{{ user.score }}ml</p>
                                     </div>
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}

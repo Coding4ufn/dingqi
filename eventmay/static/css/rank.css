@@ -66,6 +66,10 @@
 
 }
 
+.rank-table a {
+    color: white;
+}
+
 p.rank-num {
     float: left;
     margin-left: 15px;
