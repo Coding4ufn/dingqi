@@ -137,7 +137,8 @@ class WechatInterface(View):
             context = {'to_user': wechat_message.from_user_name,
                        'from_user': wechat_message.to_user_name,
                        'create_time': self.create_time_ts,
-                       'items': items}
+                       'items': items,
+                       'len': len(items)}
             from django.template import loader
             logger.info(loader.render_to_string('news.xml', context))
         return render(request, 'news.xml', context)

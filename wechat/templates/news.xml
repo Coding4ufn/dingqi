@@ -3,7 +3,7 @@
 <FromUserName><![CDATA[{{ from_user }}]]></FromUserName>
 <CreateTime>{{ create_time }}</CreateTime>
 <MsgType><![CDATA[news]]></MsgType>
-<ArticleCount>{{ items.count }}</ArticleCount>
+<ArticleCount>{{ len }}</ArticleCount>
 <Articles>
     {% for item in items %}
     <item>
