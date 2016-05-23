@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from utils import get_score
 
 
 class WechatSettings(models.Model):
@@ -89,7 +90,7 @@ class WechatUser(models.Model):
     province = models.CharField(u'省', max_length=256, blank=True, null=True)
     city = models.CharField(u'市', max_length=256, blank=True, null=True)
     privilege = models.CharField(u'特权', max_length=256, blank=True, null=True)
-    score = models.FloatField(u'顶奇分数', default=0.0)
+    score = models.IntegerField(u'顶奇分数', default=0)
     helped_by = models.ManyToManyField('self', through='AddScore', symmetrical=False, related_name='has_helped')
 
     def __unicode__(self):
@@ -107,5 +108,5 @@ class WechatUser(models.Model):
 class AddScore(models.Model):
     user = models.ForeignKey(WechatUser)
     helper = models.ForeignKey(WechatUser, related_name='received')
-    score = models.FloatField(u'顶奇分数', default=0.0)
+    score = models.IntegerField(u'顶奇分数', default=get_score)
     created = models.DateTimeField(u'加顶奇时间', default=timezone.now)

@@ -1,7 +1,9 @@
 # coding: utf-8
 
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
+from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.encoding import smart_str, smart_unicode
 from settings import *
@@ -115,6 +117,17 @@ class WechatInterface(View):
 
     def click(self, request, wechat_message):
         context = {}
+        if wechat_message.event_key == 'join':
+            items = [
+                {'title': u'立即参加顶奇夏日狂欢',
+                 'description': u'点击此处立即开始攒顶奇洗衣液奖品多多，快来参加。',
+                 'get_absolute_pic_url': settings.WEB_SITE_ROOT + static('img/3.pic.jpg'),
+                 'url': settings.WEB_SITE_ROOT + reverse('join', [wechat_message.from_user_name])}
+            ]
+            context = {'to_user': wechat_message.from_user_name,
+                       'from_user': wechat_message.to_user_name,
+                       'create_time': self.create_time_ts,
+                       'items': items}
         return render(request, 'error.xml', context)
 
     def kf_create_session(self, request, wechat_message):

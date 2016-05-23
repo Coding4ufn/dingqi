@@ -19,8 +19,8 @@ def user_page(request, fakeid):
     wechat = WechatMPAuth()
     info = wechat.get_user_info(code)
     openid = info['openid']
-    info.pop('language')
     wechat_user, created = WechatUser.objects.get_or_create(openid=openid)
+    map(lambda x: info.pop(x), ['subscribe_time', 'remark', 'groupid', 'subscribe', 'language', 'tagid_list'])
     WechatUser.objects.filter(id=wechat_user.id).update(**info)
     context = {'user': wechat_user, 'current_user': current_user}
     context.update(prepare_wechat(request.build_absolute_uri()))
@@ -40,12 +40,26 @@ def add(request, helped_id, helper_id):
     else:
         name = helper.nickname
         avatar = helper.headimgurl
-        helping, created = Help.objects.get_or_create(helper=helper, helped=current_user)
+        add_score, created = AddScore.objects.get_or_create(user=current_user, helper=helper)
         error = 0
-        score = helping.score
+        score = add_score.score
     context = {'score': score, 'created': created, 'error': error, 'name': name, 'avatar': avatar}
     return JsonResponse(context)
 
+
+@wechat_only
+def join(request, openid):
+    wechat = WechatMPAuth()
+    info = wechat.get_mp_user_info(openid)
+    map(lambda x: info.pop(x), ['subscribe_time', 'remark', 'groupid', 'subscribe', 'language', 'tagid_list'])
+    wechat_user, created = WechatUser.objects.get_or_create(openid=openid)
+    if wechat_user.score == 0:
+        score = random.randint(500, 1000)
+        info.update(score=score)
+    WechatUser.objects.filter(id=wechat_user.id).update(**info)
+    context = {'user': wechat_user}
+    context.update(prepare_wechat(request.build_absolute_uri()))
+    return render(request, 'user_page.html', context)
 
 
 def rank(request):

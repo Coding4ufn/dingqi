@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^wechat_qr/$', views.wechat_qr, name='wechat qr'),
     url(r'^u/(?P<fakeid>\d+)/$', views.user_page, name='user page'),
     url(r'^u/add/(?P<helped_id>\d+)/(?P<helper_id>\d+)/$', views.add, name='add'),
+    url(r'^u/join/(?P<openid>\d+)/$', views.join, name='join'),
     url(r'^rank/$', views.rank, name='rank'),
 ]

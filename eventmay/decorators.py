@@ -26,7 +26,6 @@ def wechat_only(function=None):
 
 def wechat_auth_open(function=None):
     """手机地址转微信授权地址。"""
-
     def do_filter_browser(func):
         def __filter_browser(request, *args, **kwargs):
             if request.META.get('HTTP_HOST') == settings.MOBILE_SITE:
