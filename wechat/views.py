@@ -138,6 +138,8 @@ class WechatInterface(View):
                        'from_user': wechat_message.to_user_name,
                        'create_time': self.create_time_ts,
                        'items': items}
+            from django.template import loader
+            logger.info(loader.render_to_string('news.xml', context))
         return render(request, 'news.xml', context)
 
     def kf_create_session(self, request, wechat_message):
