@@ -129,10 +129,18 @@ class WechatInterface(View):
         if wechat_message.event_key == 'join':
             logger.info('joining')
             items = [
-                {'title': u'立即参加顶奇夏日狂欢',
-                 'description': u'点击此处立即开始攒顶奇洗衣液奖品多多，快来参加。',
-                 'get_absolute_pic_url': settings.WEB_SITE_ROOT + static('img/3.pic.jpg'),
-                 'url': settings.WEB_SITE_ROOT + reverse('join', args=[wechat_message.from_user_name])}
+                {'title': u'顶奇夏日狂欢节',
+                 'description': u'土豪带你玩迪士尼，住裸心谷！！！玩住都免费！！！邀请朋友玩游戏，赢好礼。',
+                 'get_absolute_pic_url': 'https://mmbiz.qlogo.cn/mmbiz/dBFTVtHX0pJRJ8GUoE7KnbcPeWdhRzG4ea8KobC54XOouOGoE0Ph5RSOp18L0yUODHEtTSPLz6xS81hwuv0x3w/0?wx_fmt=jpeg',
+                 'url': ''},
+                {'title': u'点此立即参与攒顶奇洗衣液游戏',
+                 'description': '',
+                 'get_absolute_pic_url': '',
+                 'url': settings.WEB_SITE_ROOT + reverse('join', args=[wechat_message.from_user_name])},
+                {'title': u'查看游戏排行榜',
+                 'description': '',
+                 'get_absolute_pic_url': '',
+                 'url': settings.WEB_SITE_ROOT + reverse('rank')}
             ]
             context = {'to_user': wechat_message.from_user_name,
                        'from_user': wechat_message.to_user_name,
@@ -141,7 +149,16 @@ class WechatInterface(View):
                        'len': len(items)}
             from django.template import loader
             logger.info(loader.render_to_string('news.xml', context))
-        return render(request, 'news.xml', context)
+            return render(request, 'news.xml', context)
+        elif wechat_message.event_key == 'prize':
+            wechat_mp = WechatMPAuth()
+            if not WechatUser.objects.filter(openid=wechat_message.from_user_name):
+                wechat_mp.send_customer_service_text(wechat_message.from_user_name, u'您还没参加游戏呢!')
+                return HttpResponse('')
+            your_score = WechatUser.objects.get(openid=wechat_message.from_user_name).score
+            your_rank = WechatUser.objects.filter(score__gt=your_score).count() + 1
+            wechat_mp.send_customer_service_text(wechat_message.from_user_name, u'你攒到了顶奇洗衣液%sml, 目前的排名为%s。还不能领取奖品哦, 快去寻找小伙伴的帮助吧!' % (your_score, your_rank))
+            return HttpResponse('')
 
     def kf_create_session(self, request, wechat_message):
         """

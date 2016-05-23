@@ -1,0 +1,89 @@
+.rank-wrapper {
+    padding: 20px 0;
+}
+
+.rank-wrapper .outer-border{
+    background: #91B7F2;
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px;
+    min-height: 200px;
+}
+
+.rank-wrapper .inner-border {
+    border: 2px solid #EE7E6E;
+    background: #F4D3CE;
+    width: 100%;
+    min-height: 200px;
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.rank-table {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+}
+
+.rank-wrapper .inner {
+    border: 1px dashed #EE7E6E;
+    border-radius: 10px;
+    width: 100%;
+    min-height: 200px;
+}
+
+
+.divider {
+    background: #EE7E6E;
+    height: 1px;
+    margin: 0 auto 15px;
+    width: 90%;
+}
+
+.avatar-holder {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    float: left;
+    margin: 3px;
+    overflow: hidden;
+    box-shadow: 0 0 5px 0 #333 inset;
+}
+
+.avatar {
+    width: 100%;
+}
+
+.listing {
+    padding: 5px 0;
+}
+
+.rank-num, .name, .score{
+    display: inline-block;
+    line-height: 54px;
+    margin-bottom: 0;
+
+}
+
+p.rank-num {
+    float: left;
+    margin-left: 15px;
+}
+
+p.name {
+    float: left;
+    width: 120px;
+}
+
+.rank-img {
+    margin-top: 17px;
+}
+
+.activity {
+    color: #F86955;
+    text-decoration: underline;
+    width: 100%;
+    display: block;
+    margin: 0 0 20px;
+}

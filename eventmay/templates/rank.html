@@ -1,0 +1,85 @@
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>顶奇排行榜</title>
+    <link href="{% static 'css/rank.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/libs/jquery-1.11.2.min.js' %}"></script>
+    <script src="{% static 'js/libs/jweixin-1.0.0.js' %}"></script>
+    <script src="{% static 'js/libs/bootstrap.min.js' %}"></script>
+    <style>
+        .title {
+            background: url('{% static 'img/listing.png' %}');
+            background-size: cover;
+            line-height: 23px;
+            font-size: 12px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body style="background: #B7E9FF;">
+    <div class="container-fluid bg">
+        <div class="row" id="top-banner" style="background: url('{% static 'img/clothe.png' %}'); background-size: 100%;">
+            <img src="{% static 'img/rank.png' %}" width="100%">
+        </div>
+        <div class="rank-wrapper">
+            <div class="outer-border">
+                <div class="inner-border">
+                    <div class="inner">
+                        <table class="rank-table">
+                            <tr class="f-row">
+                                <td>
+                                    <p class="title">排名</p>
+                                </td>
+                                <td>
+                                    <p class="title">用户</p>
+                                </td>
+                                <td>
+                                    <p class="title">顶奇</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="divider"></div>
+                                </td>
+                            </tr>
+                            {% for user in ranked_users %}
+                            <tr>
+                                <td colspan="3" class="listing">
+                                    <div style="background: url('{% if current_user == user %}{% static 'img/mylist_bg.png' %}{% else %}{% static 'img/list_bg.png' %}{% endif %}'); background-size: 100%; margin: 0 10px;">
+                                        <div class="avatar-holder">
+                                            <img class="avatar" src="{{ user.headimgurl }}">
+                                        </div>
+                                        <p class="rank-num">
+                                            {% if forloop.counter == 1 %}
+                                                <img src="{% static 'img/no.1.png' %}" width="20" class="rank-img">
+                                            {% elif forloop.counter == 2 %}
+                                                <img src="{% static 'img/no.2.png' %}" width="20" class="rank-img">
+                                            {% elif forloop.counter == 3 %}
+                                                <img src="{% static 'img/no.3.png' %}" width="20" class="rank-img">
+                                            {% else %}
+                                                {{ forloop.counter }}名
+                                            {% endif %}
+                                        </p>
+                                        <p class="name">{{ user.nickname }}</p>
+                                        <p class="score">{{ user.score }}ml</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <a href="http://mp.weixin.qq.com/s?__biz=MzI5MjEzNjAxNA==&mid=502018828&idx=1&sn=324270690f6b30d5c80198de1702b346#rd" class="activity">
+                活动详情 >>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

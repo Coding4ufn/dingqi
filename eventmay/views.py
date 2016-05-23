@@ -74,8 +74,9 @@ def join(request, openid):
 
 def rank(request):
     """排名页面"""
-    context = {}
-    return render(request, '', context)
+    ranked_users = WechatUser.objects.all().order_by('-score')[:50]
+    context={'ranked_users': ranked_users}
+    return render(request, 'rank.html', context)
 
 
 def wechat_qr(request):
