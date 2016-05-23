@@ -59,15 +59,12 @@
             </div>
         </div>
         <div class="rank-area">
-            <a href="">
+            <a href="{% url 'rank' %}">
               <img src="{% static 'img/bt2.png' %}" width="100%">
             </a>
         </div>
-        <a class="rules">查看活动规则 >></a>&nbsp;
+        <a class="rules" href="http://mp.weixin.qq.com/s?__biz=MzI5MjEzNjAxNA==&mid=502018828&idx=1&sn=324270690f6b30d5c80198de1702b346#rd">查看活动规则 >></a>&nbsp;
     </div>
-    <div>我的顶奇页面 - {{ user.nickname }}</div>
-    <img src="{{ user.headimgurl }}" height="20">
-    <p>total score: {{ user.score }}</p>
 
     <div class="dingqi-modals">
         <div class="modal fade" id="follow">
