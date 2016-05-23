@@ -135,7 +135,7 @@ class WechatInterface(View):
                        'from_user': wechat_message.to_user_name,
                        'create_time': self.create_time_ts,
                        'items': items}
-        return render(request, 'error.xml', context)
+        return render(request, 'news.xml', context)
 
     def kf_create_session(self, request, wechat_message):
         """
