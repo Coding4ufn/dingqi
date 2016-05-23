@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from utils import get_score
+from eventmay.utils import get_score
 
 
 class WechatSettings(models.Model):
