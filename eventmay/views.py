@@ -14,7 +14,7 @@ import qrcode
 @wechat_auth_open
 def user_page(request, fakeid):
     """个人页面"""
-    current_user = get_object_or_404(WechatUser, id=fakeid)
+    current_user = get_object_or_404(WechatUser, unionid=fakeid)
     code = request.GET.get('code', '')
     wechat = WechatMPAuth()
     info = wechat.get_user_info(code)
