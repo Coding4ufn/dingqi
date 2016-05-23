@@ -76,6 +76,46 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dingqi.wsgi.application'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'websocket':{
+            'format': '%(asctime)s %(process)d:%(name)s %(levelname)s: %(message)s'
+        }
+    },
+    'handlers': {
+        'file':{
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(os.getenv('TEMP') if (os.name == 'nt') else '/var/log/dingqi','dingqi.log'),
+            'maxBytes': 1024*1024*20,
+            'backupCount': 20,
+            'formatter': 'verbose'
+        },
+        'cron_file':{
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(os.getenv('TEMP') if (os.name == 'nt') else '/var/log/dingqi','django_crontab.log'),
+            'maxBytes': 1024*1024*20,
+            'backupCount': 20,
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+        },
+        'django_crontab': {
+            'handlers': ['cron_file'],
+            'level': 'INFO',
+        }
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
