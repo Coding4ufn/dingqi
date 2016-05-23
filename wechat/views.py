@@ -123,8 +123,11 @@ class WechatInterface(View):
         return render(request, 'text_reply.xml', context)
 
     def click(self, request, wechat_message):
+        logger = get_logger(__name__)
         context = {}
+        logger.info('clicking')
         if wechat_message.event_key == 'join':
+            logger.info('joining')
             items = [
                 {'title': u'立即参加顶奇夏日狂欢',
                  'description': u'点击此处立即开始攒顶奇洗衣液奖品多多，快来参加。',
