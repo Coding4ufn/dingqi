@@ -132,7 +132,7 @@ class WechatInterface(View):
                 {'title': u'顶奇夏日狂欢节',
                  'description': u'土豪带你玩迪士尼，住裸心谷！！！玩住都免费！！！邀请朋友玩游戏，赢好礼。',
                  'get_absolute_pic_url': 'https://mmbiz.qlogo.cn/mmbiz/dBFTVtHX0pJRJ8GUoE7KnbcPeWdhRzG4ea8KobC54XOouOGoE0Ph5RSOp18L0yUODHEtTSPLz6xS81hwuv0x3w/0?wx_fmt=jpeg',
-                 'url': ''},
+                 'url': 'http://mp.weixin.qq.com/s?__biz=MzI5MjEzNjAxNA==&mid=502018828&idx=1&sn=324270690f6b30d5c80198de1702b346#rd'},
                 {'title': u'点此立即参与攒顶奇洗衣液游戏',
                  'description': '',
                  'get_absolute_pic_url': '',
