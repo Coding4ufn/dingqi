@@ -35,6 +35,12 @@ def add(request, helped_id, helper_id):
         created = ''
         name = ''
         avatar = ''
+        error = 2
+    elif helper == user:
+        score = ''
+        created = ''
+        name = ''
+        avatar = ''
         error = 1
     else:
         name = helper.nickname
@@ -42,6 +48,8 @@ def add(request, helped_id, helper_id):
         add_score, created = AddScore.objects.get_or_create(user=user, helper=helper)
         error = 0
         score = add_score.score
+        user.score += score
+        user.save()
     context = {'score': score, 'created': created, 'error': error, 'name': name, 'avatar': avatar}
     return JsonResponse(context)
 
@@ -55,8 +63,11 @@ def join(request, openid):
     if wechat_user.score == 0:
         score = random.randint(500, 1000)
         info.update(score=score)
+        AddScore.objects.create(user=wechat_user, helper=wechat_user, score=score)
     WechatUser.objects.filter(id=wechat_user.id).update(**info)
-    context = {'user': wechat_user, 'current_user': wechat_user}
+    wechat_user = WechatUser.objects.get(id=wechat_user.id)
+    url = settings.WEB_SITE_ROOT + reverse('user page', args=[wechat_user.openid])
+    context = {'user': wechat_user, 'current_user': wechat_user, 'addscores': wechat_user.addscore_set.all(), 'url': url}
     context.update(prepare_wechat(request.build_absolute_uri()))
     return render(request, 'user_page.html', context)
 

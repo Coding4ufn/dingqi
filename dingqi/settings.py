@@ -95,23 +95,11 @@ LOGGING = {
             'maxBytes': 1024*1024*20,
             'backupCount': 20,
             'formatter': 'verbose'
-        },
-        'cron_file':{
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(os.getenv('TEMP') if (os.name == 'nt') else '/var/log/dingqi','django_crontab.log'),
-            'maxBytes': 1024*1024*20,
-            'backupCount': 20,
-            'formatter': 'verbose'
         }
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'INFO',
-        },
-        'django_crontab': {
-            'handlers': ['cron_file'],
             'level': 'INFO',
         }
     }
