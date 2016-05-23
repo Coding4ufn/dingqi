@@ -56,7 +56,7 @@ def join(request, openid):
         score = random.randint(500, 1000)
         info.update(score=score)
     WechatUser.objects.filter(id=wechat_user.id).update(**info)
-    context = {'user': wechat_user}
+    context = {'user': wechat_user, 'current_user': wechat_user}
     context.update(prepare_wechat(request.build_absolute_uri()))
     return render(request, 'user_page.html', context)
 

@@ -106,7 +106,7 @@
                     <div class="modal-body text-center">
                         <img src="{% static 'img/qr-dingqi.jpg' %}" width="50%">
                         <p style="margin-top: 20px;">1. 识别二维码，关注顶奇官方公众号</p>
-                        <p>2. 回复"玩转夏天"</p>
+                        <p>2. 点击下菜单"顶奇夏日狂欢节"</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default dingqi-btn" data-dismiss="modal">知道啦!</button>
@@ -137,6 +137,7 @@
                 console.log(data)
             })
         });
+
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: '{{ appid }}', // 必填，公众号的唯一标识
