@@ -104,7 +104,6 @@ class WechatUser(models.Model):
             res = {"errcode": 1, "errmsg": "openid error"}
         return res
 
-
 class AddScore(models.Model):
     user = models.ForeignKey(WechatUser)
     helper = models.ForeignKey(WechatUser, related_name='received')
