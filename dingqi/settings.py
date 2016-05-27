@@ -29,7 +29,7 @@ SECRET_KEY = '6b9x+x(e7-x+30$4xep0+=d$yq205_#i8-5zj5-)3+(6ektz(&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.52dingqi.com']
 
 
 # Application definition
