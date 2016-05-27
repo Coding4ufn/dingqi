@@ -27,6 +27,11 @@
     background-repeat: no-repeat;background-position: 50%;">
             <svg id="fillgauge1" width="200" height="60%" style="margin-top: 2px"></svg>
         </div>
+        {% if user == current_user %}
+        <div class="my-rank">
+            <p class="text-center">我的排名: {{ user.score }}</p>
+        </div>
+        {% endif %}
         <div class="action-area">
             <a href="javascript:;" class="help">
               <img src="{% static 'img/bt1.png' %}" width="100%">
