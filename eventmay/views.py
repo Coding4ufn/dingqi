@@ -1,7 +1,7 @@
 # coding: utf-8
 from cStringIO import StringIO
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from wechat.models import *
 from decorators import *
 from models import *
@@ -75,7 +75,7 @@ def join(request, openid):
 
 def rank(request):
     """排名页面"""
-    ranked_users = WechatUser.objects.all().order_by('-score')[:50]
+    ranked_users = WechatUser.objects.filter(score__gt=0).order_by('-score')[:50]
     context={'ranked_users': ranked_users}
     return render(request, 'rank.html', context)
 
@@ -90,3 +90,11 @@ def wechat_qr(request):
     b64 = base64.b64encode(output_s)
     context = {'qr': b64}
     return render(request, 'wechat_qr.html', context)
+
+
+def error404(request):
+    return HttpResponse('你访问了不存在的页面。')
+
+
+def error500(request):
+    return HttpResponse('出错了,请重试。')

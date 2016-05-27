@@ -19,6 +19,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    url(r'^404/$', 'eventmay.views.error404', name='404'),
+    url(r'^500/$', 'eventmay.views.error500', name='500'),
     url(r'^event/', include('eventmay.urls')),
     url(r'^wechat/', include('wechat.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
