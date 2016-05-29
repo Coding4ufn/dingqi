@@ -105,7 +105,7 @@ class WechatUser(models.Model):
         return res
 
     def current_rank(self):
-        return WechatUser.objects.filter(score__gt=self.score).count()
+        return WechatUser.objects.filter(score__gt=self.score).count() + 1
 
 
 class AddScore(models.Model):
