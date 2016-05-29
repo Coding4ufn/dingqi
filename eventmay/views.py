@@ -51,6 +51,8 @@ def add(request, helped_id, helper_id):
         score = add_score.score
         user.score += score
         user.save()
+        if user.score >= 3000:
+            prize, created = Prize.objects.get_or_create(user=user, prize=u'1')
     context = {'score': score, 'created': created, 'error': error, 'name': name, 'avatar': avatar}
     return JsonResponse(context)
 

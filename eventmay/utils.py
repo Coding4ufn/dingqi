@@ -1,6 +1,7 @@
 from django.conf import settings
 import logging
 import random
+import string
 
 
 def get_score():
@@ -15,3 +16,9 @@ def get_logger(logger_name='django'):
         logger_name = 'django'
     logger = logging.getLogger(logger_name)
     return logger
+
+
+def get_new_code():
+    size = 16
+    code = ''.join(random.choice(string.letters + string.digits) for _ in range(size))
+    return code

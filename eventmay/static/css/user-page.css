@@ -106,11 +106,12 @@ body {
 }
 
 .rules {
-    color: red;
+    color: #FF3713;
     text-decoration: underline;
     width: 100%;
     display: block;
     margin-top: 20px;
+    margin-right: 10px;
     text-align: right;
 }
 

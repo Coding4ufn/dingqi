@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from eventmay.utils import get_score
+from eventmay.utils import get_score, get_new_code
 
 
 class WechatSettings(models.Model):
@@ -104,8 +104,29 @@ class WechatUser(models.Model):
             res = {"errcode": 1, "errmsg": "openid error"}
         return res
 
+    def current_rank(self):
+        return WechatUser.objects.filter(score__gt=self.score).count()
+
+
 class AddScore(models.Model):
     user = models.ForeignKey(WechatUser)
     helper = models.ForeignKey(WechatUser, related_name='received')
     score = models.IntegerField(u'顶奇分数', default=get_score)
     created = models.DateTimeField(u'加顶奇时间', default=timezone.now)
+
+PRIZE = (
+    (u'1', u'满3000ml奖品'),
+    (u'2', u'一等奖'),
+    (u'3', u'二等奖'),
+    (u'4', u'三等奖'),
+)
+
+
+class Prize(models.Model):
+    user = models.ForeignKey(WechatUser)
+    prize = models.CharField(u'奖品项目', choices=PRIZE, max_length=8)
+    code = models.CharField(u'兑换码', default=get_new_code, max_length=256)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return self.code
