@@ -49,8 +49,9 @@ def add(request, helped_id, helper_id):
         add_score, created = AddScore.objects.get_or_create(user=user, helper=helper)
         error = 0
         score = add_score.score
-        user.score += score
-        user.save()
+        if created:
+            user.score += score
+            user.save()
         if user.score >= 3000:
             prize, created = Prize.objects.get_or_create(user=user, prize=u'1')
     context = {'score': score, 'created': created, 'error': error, 'name': name, 'avatar': avatar}

@@ -155,7 +155,7 @@ class WechatInterface(View):
             if not WechatUser.objects.filter(openid=wechat_message.from_user_name):
                 reply = u'您还没参加游戏呢!'
             else:
-                prize = Prize.objects.filter(user__openid=wechat_message.from_user_name)
+                prize = Prize.objects.get(user__openid=wechat_message.from_user_name)
                 your_score = WechatUser.objects.filter(openid=wechat_message.from_user_name).first().score
                 your_rank = WechatUser.objects.filter(score__gt=your_score).count() + 1
                 if prize:
