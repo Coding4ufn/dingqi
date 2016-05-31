@@ -54,6 +54,25 @@ def add(request, helped_id, helper_id):
             user.save()
         if user.score >= 3000:
             prize, created = Prize.objects.get_or_create(user=user, prize=u'1')
+            if created:
+                wechat = WechatMPAuth()
+                data = {
+                    "first": {
+                        "value": u'恭喜您，您的小伙伴已帮您集满3000ml洗衣液，您已获得奖品。',
+                        "color": "#173177"  # 标准蓝色
+                    },
+                    "keyword1": {
+                        "value": u'顶奇夏日狂欢节',
+                    },
+                    "keyword2": {
+                        "value": u'顶奇焕彩柔顺洗衣液3kg装一瓶',
+                    },
+                    "remark": {
+                        "value": u"请点击公众号底栏中的兑换奖品查看兑换方式。邀请更多好友赢取更多大奖!",
+                    }
+                }
+                res = wechat.send_template_message(settings.MESSAGE_TEMPLATE['prize'], None, data,
+                                           user.openid)
     context = {'score': score, 'created': created, 'error': error, 'name': name, 'avatar': avatar}
     return JsonResponse(context)
 
