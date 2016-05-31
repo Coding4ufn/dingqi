@@ -27,7 +27,7 @@ def user_page(request, openid):
     info = wechat.get_user_info(code)
     c_openid = info['openid']
     current_user, created = WechatUser.objects.get_or_create(openid=c_openid)
-    map(lambda x: info.pop(x), ['language'])
+    map(lambda x: info.pop(x), ['language', 'openid'])
     WechatUser.objects.filter(id=current_user.id).update(**info)
     url = settings.WEB_SITE_ROOT + reverse('user page', args=[wechat_user.openid])
     context = {'user': wechat_user, 'current_user': current_user, 'addscores': wechat_user.addscore_set.all(), 'url': url}
@@ -88,7 +88,7 @@ def add(request, helped_id, helper_id):
 def join(request, openid):
     wechat = WechatMPAuth()
     info = wechat.get_mp_user_info(openid)
-    map(lambda x: info.pop(x), ['subscribe_time', 'remark', 'groupid', 'subscribe', 'language', 'tagid_list'])
+    map(lambda x: info.pop(x), ['subscribe_time', 'remark', 'groupid', 'subscribe', 'language', 'tagid_list', 'openid'])
     wechat_user, created = WechatUser.objects.get_or_create(openid=openid)
     if wechat_user.score == 0:
         score = random.randint(500, 1000)
