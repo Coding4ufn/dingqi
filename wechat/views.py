@@ -99,13 +99,26 @@ class WechatInterface(View):
         :param wechat_message:
         :param request:
         """
-        context = {}
-        wechat_mp = WechatMPAuth()
-        user_info = wechat_mp.get_mp_user_info(wechat_message.from_user_name)
-        reply = u'%s，感谢关注顶奇! 快点击菜单参与游戏赢大奖吧!' % user_info.get('nickname', u'亲')
-        context = {"to_user": wechat_message.from_user_name, "from_user": wechat_message.to_user_name,
-                   "create_time": self.create_time_ts, "reply": reply}
-        return render(request, 'text_reply.xml', context)
+        items = [
+            {'title': u'顶奇夏日狂欢节',
+             'description': u'土豪带你玩迪士尼，住裸心谷！！！玩住都免费！！！邀请朋友玩游戏，赢好礼。',
+             'get_absolute_pic_url': 'https://mmbiz.qlogo.cn/mmbiz/dBFTVtHX0pLQfibUF5PEgBoVpyOibp86N94BhzeKP7MfaoCRnaQvWBefy2sAUX40QExQNsib8auTv2XeFUjR9BIxA/0?wx_fmt=jpeg',
+             'url': 'http://mp.weixin.qq.com/s?__biz=MzI5MjEzNjAxNA==&mid=502018828&idx=1&sn=324270690f6b30d5c80198de1702b346#rd'},
+            {'title': u'点此立即参与攒顶奇洗衣液游戏',
+             'description': '',
+             'get_absolute_pic_url': '',
+             'url': settings.WEB_SITE_ROOT + reverse('join', args=[wechat_message.from_user_name])},
+            {'title': u'查看游戏排行榜',
+             'description': '',
+             'get_absolute_pic_url': '',
+             'url': settings.WEB_SITE_ROOT + reverse('rank')}
+        ]
+        context = {'to_user': wechat_message.from_user_name,
+                   'from_user': wechat_message.to_user_name,
+                   'create_time': self.create_time_ts,
+                   'items': items,
+                   'len': len(items)}
+        return render(request, 'news.xml', context)
 
     def unsubscribe(self, request, wechat_message):
         """

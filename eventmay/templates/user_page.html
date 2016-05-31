@@ -118,6 +118,16 @@
             waveAnimateTime: 1800
         });
 
+        function disp_confirm() {
+            var r = confirm("玩迪斯尼、住裸心谷、拿洗衣液，你也可以！去看看？");
+            if (r == true) {
+                window.location.href = "http://mp.weixin.qq.com/s?__biz=MzI5MjEzNjAxNA==&mid=502018828&idx=1&sn=324270690f6b30d5c80198de1702b346#rd";
+            }
+            else {
+
+            }
+        }
+
         $('.help').on('click', function(){
             $('#loader').show();
             url = '{% url 'add' user.openid current_user.openid %}';
@@ -139,10 +149,12 @@
                                     '<td class="added-value">+' + data.score + 'ml' +
                                     '</td>' +
                                 '</tr>');
+                        setTimeout(disp_confirm, 500);
                     }else{
                         $('.loader .score').text(String(data.score) + 'ml');
                         $('.loader .msg').text('已为他加过');
                         $('#follow').modal('show');
+                        setTimeout(disp_confirm, 500);
                     }
                 }else if (data.error == 1){
                     $('.loader .score').text('');
@@ -158,8 +170,6 @@
                 }, 1500)
             })
         });
-
-
 
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
