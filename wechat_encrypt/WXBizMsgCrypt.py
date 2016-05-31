@@ -146,29 +146,23 @@ class Prpcrypt(object):
         @return: 加密得到的字符串
         """
         # 16位随机字符串添加到明文开头
-        logger = get_logger(__name__)
         random_str = self.get_random_str()
         text = text.encode('utf8')
-        logger.info(u'len(text): %s' % (len(text)))
         # logger.info(u'socket.htonl: %s | %s' % (socket.htonl(len(text)), type(socket.htonl(len(text)))))
         # logger.info(u'2: %s | %s' % (struct.pack("I",socket.htonl(len(text)))), type(struct.pack("I",socket.htonl(len(text)))))
         text = random_str + struct.pack("I", socket.htonl(len(text))) + text + str(appid)
         text = text.encode('utf-8')
-        logger.info(u'new text: %s' % text)
         # 使用自定义的填充方式对明文进行补位填充
         pkcs7 = PKCS7Encoder()
         text = pkcs7.encode(text)
-        logger.info(u'new new text: %s' % text)
         # 加密
         cryptor = AES.new(self.key,self.mode,self.key[:16])
         try:
             ciphertext = cryptor.encrypt(text)
             # 使用BASE64对加密后的字符串进行编码
-            logger.info('encoded_____!'+base64.b64encode(ciphertext))
             return ierror.WXBizMsgCrypt_OK, base64.b64encode(ciphertext)
         except Exception,e:
             print e
-            logger.info(e)
             return  ierror.WXBizMsgCrypt_EncryptAES_Error,None
 
     def decrypt(self,text,appid):
@@ -224,7 +218,6 @@ class WXBizMsgCrypt(object):
         self.appid = unicode(sAppId)
 
     def EncryptMsg(self, sReplyMsg, sNonce, timestamp = None):
-        logger = get_logger(__name__)
         #将公众号回复用户的消息加密打包
         #@param sReplyMsg: 企业号待回复用户的消息，xml格式的字符串
         #@param sTimeStamp: 时间戳，可以自己生成，也可以用URL参数的timestamp,如为None则自动用当前时间

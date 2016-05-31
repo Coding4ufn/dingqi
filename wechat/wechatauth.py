@@ -5,6 +5,7 @@ from wechat.models import *
 import json
 import urllib
 import requests
+from eventmay.utils import get_logger
 from django.utils import timezone
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -81,6 +82,7 @@ class WechatMPAuth(object):
         """
         通过code获取用户access token
         """
+        logger = get_logger(__name__)
         key = 'user_info'
         payload = {'code': code, 'grant_type': 'authorization_code', 'appid': self.appid, 'secret': self.secret}
         url = 'https://api.weixin.qq.com/sns/oauth2/access_token'
@@ -91,6 +93,7 @@ class WechatMPAuth(object):
         #     data = {'error': 'failed to fetch %s.' % key}
         if 'error' in data:
             return data
+        logger.info(data)
         expires_in = data.pop('expires_in')
         data.pop('scope')
         expired = timezone.now() + timezone.timedelta(seconds=expires_in)
