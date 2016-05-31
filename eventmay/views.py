@@ -16,6 +16,13 @@ def user_page(request, openid):
     """个人页面"""
     wechat_user = get_object_or_404(WechatUser, openid=openid)
     code = request.GET.get('code', '')
+    if not code:
+        return redirect(
+            reverse('wechat qr') + '?next=https://open.weixin.qq.com/connect/oauth2/authorize?appid='
+            + settings.WECHAT_ID + '&redirect_uri='
+            + 'http://' + settings.MOBILE_SITE + request.path + '?showwxpaytitle=1'
+            + '&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
+        )
     wechat = WechatMPAuth()
     info = wechat.get_user_info(code)
     c_openid = info['openid']
