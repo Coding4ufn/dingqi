@@ -32,7 +32,7 @@ def user_page(request, openid):
     url = settings.WEB_SITE_ROOT + reverse('user page', args=[wechat_user.openid])
     max_value = 3000
     if wechat_user.score >= 3000:
-        max_value = wechat_user.score * 1.43
+        max_value = int(wechat_user.score * 1.43)
     context = {'user': wechat_user, 'current_user': current_user, 'addscores': wechat_user.addscore_set.all(), 'url': url, 'max_value': max_value}
     context.update(prepare_wechat(request.build_absolute_uri()))
     return render(request, 'user_page.html', context)
