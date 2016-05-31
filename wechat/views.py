@@ -111,7 +111,6 @@ class WechatInterface(View):
         """
         取关时删除微信关联用户
         """
-        WechatUser.objects.filter(openid=wechat_message.from_user_name).update(openid=None)
         return HttpResponse('success')
 
     def templatesendjobfinish(self, request, wechat_message):
