@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles  %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -108,6 +108,7 @@
     <script>
     $(function(){
         d3.select("#fillgauge1").call(d3.liquidfillgauge, {{ user.score }}, {
+            maxValue: {{ max_value }},
             circleThickness: 0.05, // The outer circle thickness as a percentage of it's radius.
             circleFillGap: 0.02, // The size of the gap between the outer circle and wave circle as a percentage of the outer circles radius.
             circleColor: "#178BCA", // The color of the outer circle.
@@ -149,11 +150,11 @@
                                     '<td class="added-value">+' + data.score + 'ml' +
                                     '</td>' +
                                 '</tr>');
-                        setTimeout(disp_confirm, 2500);
+                        setTimeout(disp_confirm, 1800);
                     }else{
                         $('.loader .score').text(String(data.score) + 'ml');
                         $('.loader .msg').text('已为他加过');
-                        setTimeout(disp_confirm, 2500);
+                        setTimeout(disp_confirm, 1800);
                     }
                 }else if (data.error == 1){
                     $('.loader .score').text('');
