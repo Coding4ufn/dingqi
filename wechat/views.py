@@ -102,7 +102,9 @@ class WechatInterface(View):
         context = {}
         wechat_mp = WechatMPAuth()
         user_info = wechat_mp.get_mp_user_info(wechat_message.from_user_name)
-        wechat_user, created = WechatUser.objects.get_or_create(unionid=user_info['unionid'])
+        reply = u'%s，感谢关注顶奇! 快点击菜单参与游戏赢大奖吧!' % user_info.get('nickname', u'亲')
+        context = {"to_user": wechat_message.from_user_name, "from_user": wechat_message.to_user_name,
+                   "create_time": self.create_time_ts, "reply": reply}
         return render(request, 'text_reply.xml', context)
 
     def unsubscribe(self, request, wechat_message):
