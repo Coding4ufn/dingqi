@@ -78,8 +78,9 @@
                     </div>
                     <div class="modal-body text-center">
                         <img src="{% static 'img/qr-dingqi.jpg' %}" width="50%">
-                        <p style="margin-top: 20px;">1. 识别二维码，关注顶奇官方公众号</p>
+                        <p style="margin-top: 20px;">1. 按住二维码图片识别二维码，关注顶奇官方公众号</p>
                         <p>2. 点击下菜单"顶奇夏日狂欢节"</p>
+                        <p>3. 发给朋友，免费获得奖品!</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default dingqi-btn" data-dismiss="modal">知道啦!</button>
@@ -138,9 +139,11 @@
                                     '<td class="added-value">+' + data.score + 'ml' +
                                     '</td>' +
                                 '</tr>');
+                        $('#follow').modal('show');
                     }else{
                         $('.loader .score').text(String(data.score) + 'ml');
                         $('.loader .msg').text('已为他加过');
+                        $('#follow').modal('show');
                     }
                 }else if (data.error == 1){
                     $('.loader .score').text('');
