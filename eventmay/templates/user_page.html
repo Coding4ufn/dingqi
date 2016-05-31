@@ -149,12 +149,11 @@
                                     '<td class="added-value">+' + data.score + 'ml' +
                                     '</td>' +
                                 '</tr>');
-                        setTimeout(disp_confirm, 500);
+                        setTimeout(disp_confirm, 2500);
                     }else{
                         $('.loader .score').text(String(data.score) + 'ml');
                         $('.loader .msg').text('已为他加过');
-                        $('#follow').modal('show');
-                        setTimeout(disp_confirm, 500);
+                        setTimeout(disp_confirm, 2500);
                     }
                 }else if (data.error == 1){
                     $('.loader .score').text('');
