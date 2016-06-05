@@ -5,7 +5,7 @@ import string
 
 
 def get_score():
-    return random.randint(30, 65)
+    return random.randint(25, 41)
 
 
 def get_logger(logger_name='django'):
