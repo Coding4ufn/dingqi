@@ -175,7 +175,10 @@ class WechatInterface(View):
                 if prize:
                     reply = u'恭喜你, 你攒到了顶奇洗衣液%sml, 目前的排名为%s。获得奖品顶奇洗衣液一瓶。复制这条信息，打开手机淘宝即可看到 ￥AAFLCOXS￥http://tmqd.me/h.Fj7uj?cv=AAFLCOXS, 下单并备注兑换码%s' % (your_score, your_rank, prize.first().code)
                 else:
-                    reply = u'你攒到了顶奇洗衣液%sml, 目前的排名为%s。还不能领取奖品哦, 快去寻找小伙伴的帮助吧!' % (your_score, your_rank)
+                    if your_score > 3000:
+                        reply = u'你攒到了顶奇洗衣液%sml, 目前的排名为%s。很遗憾, 1000份免费顶奇洗衣液已经发完了。请继续努力冲刺大奖吧!'
+                    else:
+                        reply = u'你攒到了顶奇洗衣液%sml, 目前的排名为%s。还不能领取奖品哦, 快去寻找小伙伴的帮助吧!' % (your_score, your_rank)
             context = {"to_user": wechat_message.from_user_name, "from_user": wechat_message.to_user_name,
                        "create_time": self.create_time_ts, "reply": reply}
             return render(request, 'text_reply.xml', context)
