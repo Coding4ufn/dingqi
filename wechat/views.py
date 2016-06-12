@@ -140,32 +140,10 @@ class WechatInterface(View):
         logger = get_logger(__name__)
         context = {}
         logger.info('clicking')
+        reply = ''
         if wechat_message.event_key == 'join':
-            logger.info('joining')
-            items = [
-                {'title': u'顶奇夏日狂欢节',
-                 'description': u'土豪带你玩迪士尼，住裸心谷！！！玩住都免费！！！邀请朋友玩游戏，赢好礼。',
-                 'get_absolute_pic_url': 'https://mmbiz.qlogo.cn/mmbiz/dBFTVtHX0pLQfibUF5PEgBoVpyOibp86N94BhzeKP7MfaoCRnaQvWBefy2sAUX40QExQNsib8auTv2XeFUjR9BIxA/0?wx_fmt=jpeg',
-                 'url': 'http://mp.weixin.qq.com/s?__biz=MzI5MjEzNjAxNA==&mid=502018828&idx=1&sn=324270690f6b30d5c80198de1702b346#rd'},
-                {'title': u'点此立即参与攒顶奇洗衣液游戏',
-                 'description': '',
-                 'get_absolute_pic_url': '',
-                 'url': settings.WEB_SITE_ROOT + reverse('join', args=[wechat_message.from_user_name])},
-                {'title': u'查看游戏排行榜',
-                 'description': '',
-                 'get_absolute_pic_url': '',
-                 'url': settings.WEB_SITE_ROOT + reverse('rank')}
-            ]
-            context = {'to_user': wechat_message.from_user_name,
-                       'from_user': wechat_message.to_user_name,
-                       'create_time': self.create_time_ts,
-                       'items': items,
-                       'len': len(items)}
-            from django.template import loader
-            logger.info(loader.render_to_string('news.xml', context))
-            return render(request, 'news.xml', context)
+            reply = u'顶奇夏日狂欢节活动已圆满结束，获奖候选人的数据正在进行反作弊及查重处理，敬请期待最新通知和获奖名单，排名请<a href="' + settings.WEB_SITE_ROOT + reverse('rank') + '">点击查看</a>'
         elif wechat_message.event_key == 'prize':
-            wechat_mp = WechatMPAuth()
             if not WechatUser.objects.filter(openid=wechat_message.from_user_name):
                 reply = u'您还没参加游戏呢!'
             else:
@@ -179,9 +157,9 @@ class WechatInterface(View):
                         reply = u'你攒到了顶奇洗衣液%sml, 目前的排名为%s。很遗憾, 1000份免费顶奇洗衣液已经发完了。请继续努力冲刺大奖吧!'
                     else:
                         reply = u'你攒到了顶奇洗衣液%sml, 目前的排名为%s。还不能领取奖品哦, 快去寻找小伙伴的帮助吧!' % (your_score, your_rank)
-            context = {"to_user": wechat_message.from_user_name, "from_user": wechat_message.to_user_name,
-                       "create_time": self.create_time_ts, "reply": reply}
-            return render(request, 'text_reply.xml', context)
+        context = {"to_user": wechat_message.from_user_name, "from_user": wechat_message.to_user_name,
+                   "create_time": self.create_time_ts, "reply": reply}
+        return render(request, 'text_reply.xml', context)
 
     def kf_create_session(self, request, wechat_message):
         """
