@@ -25,6 +25,7 @@
         <div class="row" id="top-banner" style="background: url('{% static 'img/clothe.png' %}'); background-size: 100%;">
             <img src="{% static 'img/rank.png' %}" width="100%">
         </div>
+        <p class="text-center">本次活动已圆满结束，进入去重及反作弊阶段，最终排名稍后公布!感谢大家的热情参与。</p>
         <div class="rank-wrapper">
             <div class="outer-border">
                 <div class="inner-border">
@@ -49,7 +50,7 @@
                             {% for user in ranked_users %}
                             <tr>
                                 <td colspan="3" class="listing">
-                                    <a href="{% url 'user page' user.openid %}">
+{#                                    <a href="{% url 'user page' user.openid %}">#}
                                     <div style="background: url('{% if current_user == user %}{% static 'img/mylist_bg.png' %}{% else %}{% static 'img/list_bg.png' %}{% endif %}'); background-size: 100%; margin: 0 10px;">
                                         <div class="avatar-holder">
                                             <img class="avatar" src="{{ user.headimgurl }}">
@@ -68,7 +69,7 @@
                                         <p class="name">{{ user.nickname }}</p>
                                         <p class="score">{{ user.score }}ml</p>
                                     </div>
-                                    </a>
+{#                                    </a>#}
                                 </td>
                             </tr>
                         {% endfor %}
