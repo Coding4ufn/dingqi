@@ -16,9 +16,9 @@ from server_account_config import *
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-WEB_SITE_ROOT = 'http://www.52dingqi.com'
+WEB_SITE_ROOT = 'http://192.168.1.11:8000'
 
-MOBILE_SITE = 'www.52dingqi.com'
+MOBILE_SITE = '192.168.1.11:8000'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -27,9 +27,9 @@ MOBILE_SITE = 'www.52dingqi.com'
 SECRET_KEY = '6b9x+x(e7-x+30$4xep0+=d$yq205_#i8-5zj5-)3+(6ektz(&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['www.52dingqi.com']
+ALLOWED_HOSTS = ['192.168.1.11']
 
 
 # Application definition
@@ -91,7 +91,7 @@ LOGGING = {
         'file':{
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(os.getenv('TEMP') if (os.name == 'nt') else '/var/log/dingqi','dingqi.log'),
+            'filename': os.path.join(os.getenv('TEMP') if (os.name == 'nt') else './','dingqi.log'),
             'maxBytes': 1024*1024*20,
             'backupCount': 20,
             'formatter': 'verbose'
@@ -107,18 +107,23 @@ LOGGING = {
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+#DATABASES = {
+#    'default': {
+#        'ENGINE': ProductionDB.ENGINE,
+#        'NAME': ProductionDB.NAME,
+#        'USER': ProductionDB.USER,
+#        'PASSWORD': ProductionDB.PASS,
+#        'HOST': ProductionDB.HOST,
+#        'PORT': ProductionDB.PORT,
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': ProductionDB.ENGINE,
-        'NAME': ProductionDB.NAME,
-        'USER': ProductionDB.USER,
-        'PASSWORD': ProductionDB.PASS,
-        'HOST': ProductionDB.HOST,
-        'PORT': ProductionDB.PORT,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'blogDB.db'),
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
